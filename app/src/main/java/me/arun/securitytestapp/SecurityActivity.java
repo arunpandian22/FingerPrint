@@ -2,6 +2,7 @@ package me.arun.securitytestapp;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class SecurityActivity extends AppCompatActivity
+public class SecurityActivity extends AppCompatActivity implements FingerprintHandler.FingerPrintAuthCallBack
 {
 
     public Button btProceed;
@@ -62,11 +63,50 @@ public class SecurityActivity extends AppCompatActivity
     @TargetApi(Build.VERSION_CODES.M)
     public void fingerPrintManagerSetup()
     {
-        fingerprintHandler=new FingerprintHandler(this,fingerprintFragment);
+        fingerprintHandler=new FingerprintHandler(this,fingerprintFragment,this);
         keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
         fingerprintHandler.fingerPrintSetup(fingerprintManager,keyguardManager);
 
     }
 
+    @Override
+    public void onAuthenticationError(int errMsgId, CharSequence errString) {
+        updateStatus("Fingerprint Authentication error\n" + errString, false);
+
+    }
+
+    @Override
+    public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
+      updateStatus("Fingerprint Authentication help\n" + helpString, false);
+
+    }
+
+    @Override
+    public void onAuthenticationFailed() {
+      updateStatus("Fingerprint Authentication failed.", false);
+
+    }
+
+    @Override
+    public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
+        this.updateStatus("Fingerprint Authentication succeeded.", true);
+
+        fingerprintFragment.ivIcon.setImageDrawable(getDrawable(R.drawable.ic_fingerprint_success));
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
+    public void updateStatus(String e, Boolean success) {
+        fingerprintFragment.tvStatus.setText(e);
+        if (!success) {
+            fingerprintFragment.ivIcon.setImageDrawable(getDrawable(R.drawable.ic_fingerprint_error));
+            fingerprintFragment.tvStatus.setTextColor(getResources().getColor(R.color.warning_color));
+        }else{
+            fingerprintFragment.tvStatus.setTextColor(getResources().getColor(R.color.success_color));
+        }
+
+    }
 }

@@ -28,13 +28,15 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private Context context;
     FingerprintFragment fingerprintFragment;
+    FingerPrintAuthCallBack fingerPrintAuthCallBack;
 
 
     // Constructor
     @TargetApi(Build.VERSION_CODES.M)
-    public FingerprintHandler(Context mContext,FingerprintFragment fingerprintFragment) {
+    public FingerprintHandler(Context mContext,FingerprintFragment fingerprintFragment,FingerPrintAuthCallBack fingerPrintAuthCallBack) {
         context = mContext;
         this.fingerprintFragment=fingerprintFragment;
+        this.fingerPrintAuthCallBack=fingerPrintAuthCallBack;
     }
     @TargetApi(Build.VERSION_CODES.M)
     public void startAuth(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject) {
@@ -47,27 +49,30 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
-        this.updateStatus("Fingerprint Authentication error\n" + errString, false);
+        fingerPrintAuthCallBack.onAuthenticationError(errMsgId,errString);
     }
 
 
     @Override
     public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
-        this.updateStatus("Fingerprint Authentication help\n" + helpString, false);
+        fingerPrintAuthCallBack.onAuthenticationHelp(helpMsgId,helpString);
     }
 
 
     @Override
     public void onAuthenticationFailed() {
-        this.updateStatus("Fingerprint Authentication failed.", false);
+        fingerPrintAuthCallBack.onAuthenticationFailed();
 
 
     }
 
 
     @Override
-    public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
-        this.updateStatus("Fingerprint Authentication succeeded.", true);
+    public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
+    {
+        fingerPrintAuthCallBack.onAuthenticationSucceeded(result);
+
+
 
        fingerprintFragment.ivIcon.setImageDrawable(context.getDrawable(R.drawable.ic_fingerprint_success));
         Intent intent = new Intent(context, HomeActivity.class);
@@ -81,14 +86,19 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
 
 
-    public void updateStatus(String e, Boolean success){
-        fingerprintFragment.tvStatus.setText(e);
-        if (!success) {
-            fingerprintFragment.ivIcon.setImageDrawable(context.getDrawable(R.drawable.ic_fingerprint_error));
-            fingerprintFragment.tvStatus.setTextColor(context.getColor(R.color.warning_color));
-        }else{
-            fingerprintFragment.tvStatus.setTextColor(context.getColor(R.color.success_color));
-        }
+
+
+
+    public interface FingerPrintAuthCallBack
+    {
+
+         void onAuthenticationError(int errMsgId, CharSequence errString);
+
+         void onAuthenticationHelp(int helpMsgId, CharSequence helpString);
+
+         void onAuthenticationFailed();
+
+         void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result);
 
     }
 
