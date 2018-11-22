@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SecurityTestApp</string>
+
+
+    <string name="cancel">Cancel</string>
+    <string name="use_password">Use password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="ok">OK</string>
+    <string name="password">Password</string>
+    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="password_description">Enter your store password to continue</string>
+    <string name="description_fingerprint_icon">Fingerprint icon</string>
+
+
+</resources>
