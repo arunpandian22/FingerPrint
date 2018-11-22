@@ -14,8 +14,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
-import static android.content.Context.FINGERPRINT_SERVICE;
-import static android.content.Context.KEYGUARD_SERVICE;
 
 /**
  * Created by arun on 29/11/17.
@@ -71,9 +69,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result)
     {
         fingerPrintAuthCallBack.onAuthenticationSucceeded(result);
-
-
-
        fingerprintFragment.ivIcon.setImageDrawable(context.getDrawable(R.drawable.ic_fingerprint_success));
         Intent intent = new Intent(context, HomeActivity.class);
         context.startActivity(intent);
@@ -82,13 +77,9 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     }
 
 
-
-
-
-
-
-
-
+    /**
+     * A interface for the call back of finger print authentication
+     */
     public interface FingerPrintAuthCallBack
     {
 
@@ -116,7 +107,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         // Check whether the device has a Fingerprint sensor.
         if(!fingerprintManager.isHardwareDetected()){
 
-//                tv_fp_mes.setText("Your Device does not have a Fingerprint Sensor");
             if (fingerprintFragment.isVisible())
                 fingerprintFragment.dismiss();
             Toast.makeText(context, ""+"Your Device does not have a Fingerprint Sensor", Toast.LENGTH_SHORT).show();
@@ -124,7 +114,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         }else {
             // Checks whether fingerprint permission is set on manifest
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-//                   tv_fp_mes.setText("Fingerprint authentication permission not enabled");
                 if (fingerprintFragment.isVisible())
                     fingerprintFragment.tvStatus.setText("Fingerprint authentication permission not enabled");
                 else
@@ -139,7 +128,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                 }else{
                     // Checks whether lock screen security is enabled or not
                     if (!keyguardManager.isKeyguardSecure()) {
-//                            tv_fp_mes.setText("Lock screen security not enabled in Settings");
                         if (fingerprintFragment.isVisible())
                             fingerprintFragment.tvStatus.setText("Lock screen security not enabled in Settings");
                         else
