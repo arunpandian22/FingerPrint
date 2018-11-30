@@ -20,7 +20,7 @@ android:requiredFeature=”false” />
 
 When you declare android:required=”true” for a feature, you are specifying that the application cannot function, or is not designed to the devices, which don’t have the fingerprint sensor. Because some device doesn’t have fingerprint sensor you have to set it to false. If you didn’t mention the android:required=false it will take as true
 
-Just copy and paste the file of [GenerateKeyCipher.java](https://bitbucket.org/arunnfn/androidutils/src/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/GenerateKeyCipher.java)
+Just copy and paste the file of [GenerateKeyCipher.java](https://github.com/arunpandian22/FingerPrint/blob/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/GenerateKeyCipher.java)
 
 This class contains the
 
@@ -71,7 +71,7 @@ public class SecurityActivity extends AppCompatActivity implements FingerprintHa
 
 ```
 
-Then initialize the following class in Activity class and run the program you will get the result in callbacks when the user tries to authenticate. In the following example, I gave an instance of [FingerprintFragment class](https://bitbucket.org/arunnfn/androidutils/src/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/FingerprintFragment.java) which I created for the initial information and which also used for showing error also in fragment dialog. if you create any new popup fragment you can set it instead of that to handle errors and showing information.
+Then initialize the following class in Activity class and run the program you will get the result in callbacks when the user tries to authenticate. In the following example, I gave an instance of [FingerprintFragment class](https://github.com/arunpandian22/FingerPrint/blob/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/FingerprintFragment.java) which I created for the initial information and which also used for showing error also in fragment dialog. if you create any new popup fragment you can set it instead of that to handle errors and showing information.
 
 ```
 
@@ -95,6 +95,6 @@ Then initialize the following class in Activity class and run the program you wi
 
 ```
 
-You can refer the [Activity here](https://bitbucket.org/arunnfn/androidutils/src/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/SecurityActivity.java)
+You can refer the [Activity here](https://github.com/arunpandian22/FingerPrint/blob/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/SecurityActivity.java)
 
 Any doubt then call me for help or ask me a doubt.
