@@ -28,7 +28,7 @@ This class contains the
 * KeyStore class represents a storage facility for cryptographic keys and certificates.
 * Cipher class provides the functionality of a cryptographic Cipher for encryption and decryption. It forms the core of the Java Cryptographic Extension (JCE) framework.
 
-just copy and paste the class of the [FingerprintHandler.java](https://github.com/arunpandian22/FingerPrint/blob/master/app/src/main/java/me/arun/androidexploredutil/FingerPrint/FingerprintHandler.java)
+just copy and paste the class of the [FingerprintHandler.java](https://github.com/arunpandian22/FingerPrint/blob/master/app/src/main/java/me/arun/securitytestapp/FingerprintHandler.java)
 
 
 This class contains all fingerprint set up and callbacks for the fingerprint Authentication and all the things in inline if you want to line by line explanation and method explanation. because I don't want to repeat the same thing here
